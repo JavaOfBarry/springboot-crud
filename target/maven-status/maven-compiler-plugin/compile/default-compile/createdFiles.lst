@@ -1,7 +1,0 @@
-com\chat\repository\UserRepository.class
-com\chat\SpringbootCrudApplication.class
-com\chat\Entity\User.class
-com\chat\param\UserParam.class
-com\chat\service\UserService.class
-com\chat\service\impl\UserServiceImpl.class
-com\chat\controller\UserController.class
