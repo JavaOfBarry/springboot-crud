@@ -1,0 +1,18 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1/springbootdemo?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  thymeleaf:
+    cache: false
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 30MB
+      max-request-size: 30MB

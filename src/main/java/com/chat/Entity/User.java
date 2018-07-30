@@ -12,18 +12,20 @@ import java.util.Date;
 @Entity
 public class User {
 
-    @Id
-    @GeneratedValue
-    private Integer id;
+	@Id
+	@GeneratedValue
+	private Integer id;
 
-    @Column(unique = true)
-    private String userName;
+	@Column(unique = true)
+	private String userName;
 
-    private String passWord;
+	private String passWord;
 
-    private int age;
+	private String destFileName;
+	
+	private int age;
 
-    private Date regTime;
+	private Date regTime;
 
 	public Integer getId() {
 		return id;
@@ -64,5 +66,13 @@ public class User {
 	public void setRegTime(Date regTime) {
 		this.regTime = regTime;
 	}
-    
+
+	public String getDestFileName() {
+		return destFileName;
+	}
+
+	public void setDestFileName(String destFileName) {
+		this.destFileName = destFileName;
+	}
+
 }
