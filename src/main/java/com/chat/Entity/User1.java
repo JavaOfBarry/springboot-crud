@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Data
 @Entity
-public class User {
+public class User1 {
 
 	@Id
 	@GeneratedValue

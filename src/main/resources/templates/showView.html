@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>简易瀑布流（基于多栏列表流体布局实现）</title>
+    <style type="text/css">
+    .WSCWaterfall{
+        width: 960px;
+        margin: 0 auto;
+    }
+    .WSCWaterfallCell{
+        margin-bottom: 10px;
+        padding: 5px 8px;
+        line-height: 18px;
+        width: 214px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        background-color: #ccc;
+        overflow: hidden;
+    }
+    .WSCWaterfallColumn{
+        display: inline-block;
+        vertical-align: top;
+    }
+    .template_div{
+        display: none;
+    }
+    </style>
+</head>
+<body>
+    <div class="WSCWaterfall">
+    </div>
+    <div class="template_div">
+        <div class="WSCWaterfallColumn"></div>
+        <div class="WSCWaterfallCell"></div>
+    </div>
+<script type="text/javascript" src="jquery-1.8.2.js"></script>
+<script type="text/javascript">
+    
+function WSCWaterFall(arg_obj){
+    var data_arr = arg_obj["users"] || [];
+    var columnNum = arg_obj["columnNum"] || 4;
+    var $WSCWaterfallCell_template = arg_obj["WSCWaterfallCell_template"] || $('.template_div').find(".WSCWaterfallCell");
+    var $WSCWaterfallColumn_template = arg_obj["WSCWaterfallColumn_template"] || $('.template_div').find(".WSCWaterfallColumn");
+    var $WSCWaterfall =arg_obj["WSCWaterfall_outer"] || $(".WSCWaterfall");
+    var waterFallCell = arg_obj["waterFallCell_fn"] ;
+
+    var columnArr = [];
+    var cellArr = [];
+    
+
+    // 生成列数组
+    for(var j=0; j<columnNum; j++){
+        var $WSCWaterfallColumn = $WSCWaterfallColumn_template.clone(true);
+        columnArr.push($WSCWaterfallColumn);
+    }
+
+    // 生成瀑布流单元，用户可自定义
+    waterFallCell(data_arr, $WSCWaterfallCell_template, cellArr);
+
+    // 列数组和单元数组筛选配对
+    for(var k = 0; k < cellArr.length; k++){
+        var $WSCWaterfallCell = cellArr[k];
+        var index = (k % columnNum);
+        try{
+            columnArr[index].append($WSCWaterfallCell);
+        }
+        catch(e){
+            console.log(e);
+            console.log(index);
+        }
+    }
+
+    // 渲染html页面
+    for(var i=0; i< columnArr.length; i++){
+        // 可优化的地方，一次append进去，而不是循环append
+        $WSCWaterfall.append(columnArr[i]);
+    }
+}
+
+// 初始化测试数据
+var data_arr = [];
+for(var i=0; i<50; i++){
+    data_arr.push(i);
+}
+
+// data_arr是数据源
+// columnNum 是列数
+// WSCWaterfallCell_template 是 瀑布流单元格的模板jQuery引用
+// WSCWaterfallColumn_template 是 瀑布流列的模板jQuery引用
+// WSCWaterfall_outer 是 包裹瀑布流的jQuery引用
+// waterFallCell_fn 是 渲染瀑布流单元格的方法,其中第三个参数cellArr是指单元格的jQuery引用数组,它根据data_arr和WSCWaterfallCell_template计算出来
+WSCWaterFall({
+    "data_arr":data_arr,
+    "columnNum":4,
+    "WSCWaterfallCell_template" : $('.template_div').find(".WSCWaterfallCell"),
+    "WSCWaterfallColumn_template" :$('.template_div').find(".WSCWaterfallColumn"),
+    "WSCWaterfall_outer" : $(".WSCWaterfall"),
+    "waterFallCell_fn" : function(data_arr, $WSCWaterfallCell_template, cellArr){
+        for (var i = 0; i < data_arr.length; i++) {
+            var $WSCWaterfallCell = $WSCWaterfallCell_template.clone(true);
+            $WSCWaterfallCell.append(i);
+            cellArr.push($WSCWaterfallCell);
+        }
+    }
+});
+
+
+
+</script>
+</body>
+</html>

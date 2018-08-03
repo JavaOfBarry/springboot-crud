@@ -1,6 +1,6 @@
 package com.chat.controller;
 
-import com.chat.Entity.User;
+import com.chat.Entity.User1;
 import com.chat.param.UserParam;
 import com.chat.service.UserService;
 import org.springframework.beans.BeanUtils;
@@ -46,9 +46,10 @@ public class UserController {
 			@RequestParam(value = "size",defaultValue = "6")Integer size){
 		Sort sort = new Sort(Sort.Direction.ASC,"id");
 		Pageable pageable = new PageRequest(page,size,sort);
-		Page<User> users = userService.findList(pageable);
+		Page<User1> users = userService.findList(pageable);
 		model.addAttribute("users",users);
 		return "list.html";
+//		return "showView.html";
 	}
 
 	@RequestMapping("/toAdd")
@@ -69,7 +70,7 @@ public class UserController {
 			modelMap.addAttribute("errorMsg",errorMsg);
 			return "userAdd";
 		}
-		User user = userService.findByUserName(userParam.getUserName());
+		User1 user = userService.findByUserName(userParam.getUserName());
 		if(user != null){
 			modelMap.addAttribute("errorMsg","用户已存在");
 			return "userAdd";
@@ -92,7 +93,7 @@ public class UserController {
 				return "上传失败," + e.getMessage();
 			}
 		}
-		User user1 = new User();
+		User1 user1 = new User1();
 		BeanUtils.copyProperties(userParam,user1);
 		user1.setRegTime(new Date());
 		user1.setDestFileName("/advertIMG/"+fileName);
@@ -103,7 +104,7 @@ public class UserController {
 
 	@RequestMapping("/toEdit")
 	public String toEdit(Model model, Integer id){
-		User user = userService.findById(id);
+		User1 user = userService.findById(id);
 		model.addAttribute("user",user);
 		return "userEdit";
 	}
@@ -116,8 +117,8 @@ public class UserController {
 		String errorMsg = "";
 		String destFileName= "";
 		String fileName ="";
-		User user1 = userService.findById(userParam.getId());
-		User user = new User();
+		User1 user1 = userService.findById(userParam.getId());
+		User1 user = new User1();
 		BeanUtils.copyProperties(userParam,user);
 		user.setRegTime(new Date());
 		user.setDestFileName(user1.getDestFileName());

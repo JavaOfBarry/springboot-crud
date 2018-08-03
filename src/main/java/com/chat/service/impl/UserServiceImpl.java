@@ -1,6 +1,6 @@
 package com.chat.service.impl;
 
-import com.chat.Entity.User;
+import com.chat.Entity.User1;
 import com.chat.repository.UserRepository;
 import com.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +14,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public Page<User> findList(Pageable pageable) {
+    public Page<User1> findList(Pageable pageable) {
         return userRepository.findList(pageable);
     }
 
     @Override
-    public User findById(Integer id) {
+    public User1 findById(Integer id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public User findByUserName(String userName) {
+    public User1 findByUserName(String userName) {
         return userRepository.findByUserName(userName);
     }
 
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User1 user) {
         userRepository.save(user);
     }
 }
